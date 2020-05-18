@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fyx.mvc.dao.ManagerDao" >
+  <resultMap id="BaseResultMap" type="com.fyx.mvc.entity.Manager" >
+    <id column="MGRNAME" property="mgrname" jdbcType="VARCHAR" />
+    <result column="MGRPWD" property="mgrpwd" jdbcType="VARCHAR" />
+    <result column="MGRID" property="mgrid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MGRID,MGRNAME, MGRPWD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_MANAGER
+    where MGRID = #{mgrid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from T_MANAGER
+    where MGRNAME = #{mgrname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_MANAGER
+    where MGRID = #{mgrid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fyx.mvc.entity.Manager" >
+    insert into T_MANAGER (MGRNAME, MGRPWD
+      )
+    values (#{mgrname,jdbcType=VARCHAR}, #{mgrpwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fyx.mvc.entity.Manager" >
+    insert into T_MANAGER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mgrname != null" >
+        MGRNAME,
+      </if>
+      <if test="mgrpwd != null" >
+        MGRPWD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mgrname != null" >
+        #{mgrname,jdbcType=VARCHAR},
+      </if>
+      <if test="mgrpwd != null" >
+        #{mgrpwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fyx.mvc.entity.Manager" >
+    update T_MANAGER
+    <set >
+      <if test="mgrpwd != null" >
+        MGRPWD = #{mgrpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="mgrname != null" >
+        MGRNAME = #{mgrname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MGRID = #{mgrid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fyx.mvc.entity.Manager" >
+    update T_MANAGER
+    set MGRPWD = #{mgrpwd,jdbcType=VARCHAR},
+      MGRNAME = #{mgrname,jdbcType=VARCHAR}
+    where MGRID = #{mgrid,jdbcType=INTEGER}
+  </update>
+</mapper>

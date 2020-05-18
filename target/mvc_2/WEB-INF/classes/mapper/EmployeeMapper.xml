@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fyx.mvc.dao.EmployeeDao" >
+  <resultMap id="BaseResultMap" type="com.fyx.mvc.entity.Employee" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="BORNDATE" property="borndate" jdbcType="TIMESTAMP" />
+    <result column="SALARY" property="salary" jdbcType="DECIMAL" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, EMAIL, PHONE, BORNDATE, SALARY, DEPT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_EMPLOYEE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_EMPLOYEE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fyx.mvc.entity.Employee" >
+    insert into T_EMPLOYEE (ID, NAME, EMAIL, 
+      PHONE, BORNDATE, SALARY, 
+      DEPT_ID)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR}, #{borndate,jdbcType=TIMESTAMP}, #{salary,jdbcType=DECIMAL}, 
+      #{deptId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fyx.mvc.entity.Employee" >
+    insert into T_EMPLOYEE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="borndate != null" >
+        BORNDATE,
+      </if>
+      <if test="salary != null" >
+        SALARY,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="borndate != null" >
+        #{borndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fyx.mvc.entity.Employee" >
+    update T_EMPLOYEE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="borndate != null" >
+        BORNDATE = #{borndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salary != null" >
+        SALARY = #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fyx.mvc.entity.Employee" >
+    update T_EMPLOYEE
+    set NAME = #{name,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      BORNDATE = #{borndate,jdbcType=TIMESTAMP},
+      SALARY = #{salary,jdbcType=DECIMAL},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllEmp" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_EMPLOYEE
+  </select>
+  
+</mapper>
